@@ -130,6 +130,7 @@
     <button class="tab" role="tab" data-mode="study" aria-selected="true">Study</button>
     <button class="tab" role="tab" data-mode="quiz" aria-selected="false">Test: Numbers</button>
     <button class="tab" role="tab" data-mode="find" aria-selected="false">Test: Find it</button>
+    <button class="btn" id="themeBtn" style="margin-left:auto"></button>
   </div>
 </header>
 
@@ -210,6 +211,19 @@
 
 <script src="data.js"></script>
 <script>
+// ---------- theme ----------
+const themeBtn = document.getElementById('themeBtn');
+function setTheme(t) {
+  document.documentElement.dataset.theme = t;
+  themeBtn.textContent = t === 'dark' ? 'Light mode' : 'Dark mode';
+}
+let savedTheme = null; try { savedTheme = localStorage.getItem('theme'); } catch {}
+setTheme(savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeBtn.onclick = () => {
+  const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  setTheme(t); try { localStorage.setItem('theme', t); } catch {}
+};
+
 const R = DATA.regions;
 const byId = Object.fromEntries(R.map(r => [r.id, r]));
 const NS = 'http://www.w3.org/2000/svg';
