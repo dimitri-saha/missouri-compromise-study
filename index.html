@@ -11,7 +11,7 @@
     --bg:#f6f4ef; --card:#ffffff; --ink:#1f2328; --muted:#5f6670; --line:#e3ded3;
     --free:#5b8fd1; --free-soft:#e6eefa; --free-ink:#24548f; --free-line:#bcd1ef;
     --slave:#e3ac4f; --slave-soft:#fbf0dc; --slave-ink:#8a5a0b; --slave-line:#efd3a1;
-    --neutral:#d8d2c4; --water:#d7e6ec; --land:#eee9de; --spain:#f1ebdd; --land-line:#cfc8b8; --region-line:#ffffff;
+    --neutral:#d8d2c4; --water:#d7e6ec; --land:#eee9de; --spain:#efe3c8; --land-line:#cfc8b8; --region-line:#ffffff;
     --hatch-bg:#efede8; --hatch-line:#9a968c; --geo-label:#8a8270; --water-label:#5c8aa0;
     --accent:#7c3aed; --accent-soft:#efe9ff; --accent-ink:#4c1d95; --accent-line:#c9b5fb;
     --good:#1f9d55; --good-soft:#e3f5ea; --good-ink:#145c33; --bad:#d64545; --bad-soft:#fbe7e7; --bad-ink:#8f2121;
@@ -22,7 +22,7 @@
     --bg:#15171b; --card:#1f2228; --ink:#e9e7e2; --muted:#a0a6ae; --line:#353a42;
     --free:#5b8fd1; --free-soft:#1c2a3e; --free-ink:#aecbf3; --free-line:#34507a;
     --slave:#d9a24a; --slave-soft:#3a2e18; --slave-ink:#f1d08e; --slave-line:#6b5226;
-    --neutral:#4b4f56; --water:#1a2a33; --land:#2a2c2f; --spain:#302e2a; --land-line:#44464a; --region-line:#15171b;
+    --neutral:#4b4f56; --water:#1a2a33; --land:#2a2c2f; --spain:#3a3326; --land-line:#44464a; --region-line:#15171b;
     --hatch-bg:#2c2d30; --hatch-line:#77736a; --geo-label:#959080; --water-label:#7aa6bb;
     --accent:#a78bfa; --accent-soft:#2d2442; --accent-ink:#d9ccff; --accent-line:#5b4a8a;
     --good:#2fb86a; --good-soft:#15331f; --good-ink:#93e3b5; --bad:#e05a5a; --bad-soft:#3b1c1c; --bad-ink:#f5aaaa;
@@ -33,7 +33,7 @@
     --bg:#15171b; --card:#1f2228; --ink:#e9e7e2; --muted:#a0a6ae; --line:#353a42;
     --free:#5b8fd1; --free-soft:#1c2a3e; --free-ink:#aecbf3; --free-line:#34507a;
     --slave:#d9a24a; --slave-soft:#3a2e18; --slave-ink:#f1d08e; --slave-line:#6b5226;
-    --neutral:#4b4f56; --water:#1a2a33; --land:#2a2c2f; --spain:#302e2a; --land-line:#44464a; --region-line:#15171b;
+    --neutral:#4b4f56; --water:#1a2a33; --land:#2a2c2f; --spain:#3a3326; --land-line:#44464a; --region-line:#15171b;
     --hatch-bg:#2c2d30; --hatch-line:#77736a; --geo-label:#959080; --water-label:#7aa6bb;
     --accent:#a78bfa; --accent-soft:#2d2442; --accent-ink:#d9ccff; --accent-line:#5b4a8a;
     --good:#2fb86a; --good-soft:#15331f; --good-ink:#93e3b5; --bad:#e05a5a; --bad-soft:#3b1c1c; --bad-ink:#f5aaaa;
@@ -52,9 +52,10 @@
   @media (max-width:900px){main{grid-template-columns:1fr}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px}
   .mapwrap{padding:10px;position:relative}
-  svg{width:100%;height:auto;display:block;border-radius:10px;touch-action:manipulation}
-  .region{stroke:var(--region-line);stroke-width:.9;cursor:pointer;transition:fill .15s, opacity .15s}
-  .region:hover{opacity:.82}
+  svg{width:100%;height:auto;display:block;border-radius:10px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+  button{touch-action:manipulation}
+  .region{stroke:var(--region-line);stroke-width:.9;cursor:pointer}
+  @media (hover:hover){.region:hover{opacity:.82}}
   .region.sel{stroke:var(--ink);stroke-width:2.2}
   .badge circle{fill:var(--card);stroke:var(--ink);stroke-width:1.1}
   .badge text{font:700 10.5px Inter,sans-serif;text-anchor:middle;dominant-baseline:central;fill:var(--ink);pointer-events:none}
@@ -102,15 +103,14 @@
   .feedback.ok{background:var(--good-soft);color:var(--good-ink)}
   .feedback.no{background:var(--bad-soft);color:var(--bad-ink)}
   .progress{height:6px;background:var(--track);border-radius:99px;overflow:hidden;margin:10px 0 4px}
-  .progress div{height:100%;background:var(--accent);width:0;transition:width .25s}
+  .progress div{height:100%;background:var(--accent);width:0}
   .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
   .score{font-variant-numeric:tabular-nums;font-weight:600}
   .big{font-size:40px;font-weight:700;font-family:"Source Serif 4",serif}
   .missed{font-size:14px;padding-left:18px}
   .prompt{font-size:22px;font-weight:700;font-family:"Source Serif 4",serif;margin:8px 0 2px}
   .hidden{display:none !important}
-  @keyframes pulse{0%,100%{fill:var(--accent)}50%{fill:var(--accent-line)}}
-  .region.target{animation:pulse 1.2s ease-in-out infinite;stroke:var(--ink);stroke-width:2}
+  .region.target{fill:var(--accent) !important;stroke:var(--ink);stroke-width:2}
   .region.flash-good{fill:var(--good) !important}
   .region.flash-bad{fill:var(--bad) !important}
   .kbd{font-size:12px;color:var(--muted)}
@@ -139,6 +139,7 @@
       <span><i class="sw" style="background:var(--free)"></i>Free</span>
       <span><i class="sw" style="background:var(--slave)"></i>Slave</span>
       <span><i class="sw" style="background:repeating-linear-gradient(45deg,#bbb 0 2px,#eee 2px 5px)"></i>Claimed by U.S. and Britain</span>
+      <span><i class="sw" style="background:var(--spain);border:1px solid var(--land-line)"></i>New Spain</span>
       <span><i class="sw" style="background:#d33;height:3px;border-radius:2px"></i>36°30' line</span>
     </div>
     <div class="controls">
@@ -171,7 +172,7 @@
         <div class="row"><span class="muted" id="qCount">1 of 29</span><span class="score" id="qScore">0 / 0</span></div>
         <div class="progress"><div id="qBar"></div></div>
         <div class="prompt">What is <span id="qNum">#1</span>?</div>
-        <p class="muted" style="margin:0">It's flashing purple on the map.</p>
+        <p class="muted" style="margin:0">It's highlighted purple on the map.</p>
         <label class="fl" for="qName">Name</label>
         <select id="qName"></select>
         <label class="fl">State or territory?</label>
@@ -230,12 +231,9 @@ const defs = el('defs');
 defs.innerHTML = `<pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" class="h-bg"/><line x1="0" y1="0" x2="0" y2="6" class="h-line"/></pattern>`;
 el('rect', { x:0, y:0, width:DATA.W, height:DATA.H, class:'m-water' });
 const bg = DATA.bg;
-['canada','mexico','cuba','bahamas'].forEach(k => bg[k] && el('path', { d:bg[k], class:'m-land' }));
-el('path', { d:bg.spainUS, class:'m-spain' });
+['canada','cuba','bahamas'].forEach(k => bg[k] && el('path', { d:bg[k], class:'m-land' }));
 const t = (txt, xy, cls) => { const e = el('text', { x:xy[0], y:xy[1], class:cls }); e.textContent = txt; return e; };
 t('BRITISH NORTH AMERICA', bg.labels.bna, 'geo-label');
-t('VICEROYALTY', [bg.labels.spain[0], bg.labels.spain[1]-8], 'geo-label');
-t('OF NEW SPAIN', [bg.labels.spain[0], bg.labels.spain[1]+8], 'geo-label');
 t('Atlantic Ocean', bg.labels.atlantic, 'water-label');
 t('Gulf of Mexico', bg.labels.gulf, 'water-label');
 t('Pacific Ocean', bg.labels.pacific, 'water-label');
@@ -247,6 +245,8 @@ R.forEach(r => {
   p.addEventListener('click', () => onRegionClick(r.id));
   regionEls[r.id] = p;
 });
+t('VICEROYALTY', [bg.labels.spain[0], bg.labels.spain[1]-8], 'geo-label');
+t('OF NEW SPAIN', [bg.labels.spain[0], bg.labels.spain[1]+8], 'geo-label');
 el('path', { d:bg.line, stroke:'#d33', 'stroke-width':3, fill:'none', 'stroke-linecap':'round', 'pointer-events':'none' });
 const lineLbl = t("36°30'", [bg.labels.line[0], bg.labels.line[1]+14], 'water-label'); lineLbl.style.fill = '#e04848'; lineLbl.style.fontStyle='normal'; lineLbl.style.fontSize='11px';
 // DC star
@@ -265,8 +265,9 @@ R.forEach(r => {
 });
 
 function fillFor(r) {
-  if (mode !== 'study' || !showColors) return r.status === 'Neither' && mode==='study' ? 'url(#hatch)' : 'var(--neutral)';
-  return r.status === 'Free' ? 'var(--free)' : r.status === 'Slave' ? 'var(--slave)' : 'url(#hatch)';
+  const other = r.id === 'spain' ? 'var(--spain)' : 'url(#hatch)';
+  if (mode !== 'study' || !showColors) return r.status === 'Neither' && mode==='study' ? other : 'var(--neutral)';
+  return r.status === 'Free' ? 'var(--free)' : r.status === 'Slave' ? 'var(--slave)' : other;
 }
 function paint() {
   R.forEach(r => {
@@ -282,7 +283,7 @@ function paint() {
 // ---------- study ----------
 function showInfo(id) {
   const r = byId[id]; selected = id; paint();
-  const typeTxt = r.type === 'Shared claim' ? 'Not a state or territory' : r.type;
+  const typeTxt = r.typeLabel || r.type;
   const statusTxt = r.status === 'Neither' ? 'Neither free nor slave' : r.status;
   document.getElementById('info').innerHTML = `
     <h2><span class="info-num">${numOf[id]}</span>${r.name}</h2>
@@ -320,7 +321,7 @@ document.getElementById('shuffleNums').onclick = e => {
 };
 
 // ---------- number quiz ----------
-const TYPES = ['State', 'Territory', 'Shared claim'];
+const TYPES = ['State', 'Territory', 'Neither'];
 const STATUSES = ['Free', 'Slave', 'Neither'];
 let Q = { order:[], i:0, pts:0, max:0, checked:false, missed:[], ans:{} };
 const qName = document.getElementById('qName');
@@ -329,7 +330,7 @@ function choiceRow(container, opts, key) {
   container.innerHTML = '';
   opts.forEach(o => {
     const b = document.createElement('button');
-    b.className = 'choice'; b.textContent = o === 'Shared claim' ? 'Neither' : o; b.dataset.v = o;
+    b.className = 'choice'; b.textContent = o; b.dataset.v = o;
     b.onclick = () => { if (Q.checked) return; Q.ans[key] = o; [...container.children].forEach(c => c.setAttribute('aria-pressed', c.dataset.v === o)); };
     container.appendChild(b);
   });
@@ -369,7 +370,7 @@ function checkQ() {
   const all = okName && okType && okStatus;
   if (!all) Q.missed.push(r.id);
   const fb = document.getElementById('qFeedback');
-  const typeTxt = r.type === 'Shared claim' ? 'not a state or territory' : r.type.toLowerCase();
+  const typeTxt = r.typeLabel ? 'not a state or territory (' + r.typeLabel.toLowerCase() + ')' : r.type.toLowerCase();
   const statusTxt = r.status === 'Neither' ? 'neither free nor slave' : r.status.toLowerCase();
   fb.className = 'feedback show ' + (all ? 'ok' : 'no');
   fb.innerHTML = all ? `Correct! <b>${r.name}</b>, ${typeTxt}, ${statusTxt}.` : `It's <b>${r.name}</b>: ${typeTxt}, ${statusTxt}.`;
@@ -384,7 +385,7 @@ function finishQuiz() {
   const missed = Q.missed.map(id => byId[id]);
   d.innerHTML = `<h2>Results</h2><div class="big">${pct}%</div>
     <p class="muted">${Q.pts} of ${Q.max} points. ${Q.order.length - missed.length} of ${Q.order.length} fully correct.</p>
-    ${missed.length ? `<h3>Review these</h3><ul class="missed">${missed.map(r => `<li><b>${r.name}</b>: ${r.type === 'Shared claim' ? 'neither' : r.type.toLowerCase()}, ${r.status.toLowerCase()}</li>`).join('')}</ul>` : '<p>Perfect score. You are ready.</p>'}
+    ${missed.length ? `<h3>Review these</h3><ul class="missed">${missed.map(r => `<li><b>${r.name}</b>: ${r.type.toLowerCase()}, ${r.status.toLowerCase()}</li>`).join('')}</ul>` : '<p>Perfect score. You are ready.</p>'}
     <div class="row" style="margin-top:14px;justify-content:flex-start;gap:8px">
       ${missed.length ? '<button class="btn primary" id="retryMissed">Retry missed</button>' : ''}
       <button class="btn" id="restartQ">Start over</button>
@@ -421,7 +422,7 @@ function answerF(id) {
   regionEls[target].classList.add('flash-good');
   if (!ok && id) regionEls[id].classList.add('flash-bad');
   const r = byId[target];
-  document.getElementById('fPills').innerHTML = `<span class="pill">${r.type === 'Shared claim' ? 'Not a state or territory' : r.type}</span><span class="pill ${statusClass(r.status)}">${r.status === 'Neither' ? 'Neither' : r.status}</span>`;
+  document.getElementById('fPills').innerHTML = `<span class="pill">${r.typeLabel || r.type}</span><span class="pill ${statusClass(r.status)}">${r.status === 'Neither' ? 'Neither' : r.status}</span>`;
   const fb = document.getElementById('fFeedback');
   fb.className = 'feedback show ' + (ok ? 'ok' : 'no');
   fb.textContent = ok ? 'Correct!' : (id ? `That was ${byId[id].name}. ${r.name} is shown in green.` : `${r.name} is shown in green.`);
