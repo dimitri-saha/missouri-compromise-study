@@ -9,33 +9,33 @@
 <style>
   :root{
     --bg:#f6f4ef; --card:#ffffff; --ink:#1f2328; --muted:#5f6670; --line:#e3ded3;
-    --free:#5b8fd1; --free-soft:#e6eefa; --free-ink:#24548f; --free-line:#bcd1ef;
-    --slave:#e3ac4f; --slave-soft:#fbf0dc; --slave-ink:#8a5a0b; --slave-line:#efd3a1;
+    --free:#7d9dc2; --free-soft:#e8eef5; --free-ink:#2f4f74; --free-line:#c3d2e3;
+    --slave:#d6a466; --slave-soft:#f6ecdc; --slave-ink:#7a4f1c; --slave-line:#e6cca5;
     --neutral:#d8d2c4; --water:#d7e6ec; --land:#eee9de; --spain:#efe3c8; --land-line:#cfc8b8; --region-line:#ffffff;
     --hatch-bg:#efede8; --hatch-line:#9a968c; --geo-label:#8a8270; --water-label:#5c8aa0;
-    --accent:#7c3aed; --accent-soft:#efe9ff; --accent-ink:#4c1d95; --accent-line:#c9b5fb;
+    --accent:#9a4566; --accent-soft:#f5e8ee; --accent-ink:#5e1f3a; --accent-line:#dcb3c4;
     --good:#1f9d55; --good-soft:#e3f5ea; --good-ink:#145c33; --bad:#d64545; --bad-soft:#fbe7e7; --bad-ink:#8f2121;
     --soft:#faf8f3; --track:#eee8dc; --pill-n-bg:#eeeeee; --pill-n-ink:#555555;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
     --bg:#15171b; --card:#1f2228; --ink:#e9e7e2; --muted:#a0a6ae; --line:#353a42;
-    --free:#5b8fd1; --free-soft:#1c2a3e; --free-ink:#aecbf3; --free-line:#34507a;
-    --slave:#d9a24a; --slave-soft:#3a2e18; --slave-ink:#f1d08e; --slave-line:#6b5226;
+    --free:#6f8fb3; --free-soft:#1f2a37; --free-ink:#b7cbe3; --free-line:#3b526e;
+    --slave:#c39258; --slave-soft:#382d1d; --slave-ink:#ecd1a6; --slave-line:#6b5432;
     --neutral:#4b4f56; --water:#1a2a33; --land:#2a2c2f; --spain:#3a3326; --land-line:#44464a; --region-line:#15171b;
     --hatch-bg:#2c2d30; --hatch-line:#77736a; --geo-label:#959080; --water-label:#7aa6bb;
-    --accent:#a78bfa; --accent-soft:#2d2442; --accent-ink:#d9ccff; --accent-line:#5b4a8a;
+    --accent:#c9799a; --accent-soft:#3a2230; --accent-ink:#f0c9d8; --accent-line:#6e3a52;
     --good:#2fb86a; --good-soft:#15331f; --good-ink:#93e3b5; --bad:#e05a5a; --bad-soft:#3b1c1c; --bad-ink:#f5aaaa;
     --soft:#262a31; --track:#2e3239; --pill-n-bg:#2e3239; --pill-n-ink:#c4c8ce;
     color-scheme: dark;
   } }
   :root[data-theme="dark"]{
     --bg:#15171b; --card:#1f2228; --ink:#e9e7e2; --muted:#a0a6ae; --line:#353a42;
-    --free:#5b8fd1; --free-soft:#1c2a3e; --free-ink:#aecbf3; --free-line:#34507a;
-    --slave:#d9a24a; --slave-soft:#3a2e18; --slave-ink:#f1d08e; --slave-line:#6b5226;
+    --free:#6f8fb3; --free-soft:#1f2a37; --free-ink:#b7cbe3; --free-line:#3b526e;
+    --slave:#c39258; --slave-soft:#382d1d; --slave-ink:#ecd1a6; --slave-line:#6b5432;
     --neutral:#4b4f56; --water:#1a2a33; --land:#2a2c2f; --spain:#3a3326; --land-line:#44464a; --region-line:#15171b;
     --hatch-bg:#2c2d30; --hatch-line:#77736a; --geo-label:#959080; --water-label:#7aa6bb;
-    --accent:#a78bfa; --accent-soft:#2d2442; --accent-ink:#d9ccff; --accent-line:#5b4a8a;
+    --accent:#c9799a; --accent-soft:#3a2230; --accent-ink:#f0c9d8; --accent-line:#6e3a52;
     --good:#2fb86a; --good-soft:#15331f; --good-ink:#93e3b5; --bad:#e05a5a; --bad-soft:#3b1c1c; --bad-ink:#f5aaaa;
     --soft:#262a31; --track:#2e3239; --pill-n-bg:#2e3239; --pill-n-ink:#c4c8ce;
     color-scheme: dark;
@@ -91,13 +91,14 @@
   .list .n{color:var(--muted);font-variant-numeric:tabular-nums;display:inline-block;width:22px}
   .tips li{margin-bottom:6px}
   label.fl{display:block;font-weight:600;font-size:13px;margin:14px 0 6px}
-  select{width:100%;padding:9px 10px;border-radius:9px;border:1px solid var(--line);font:inherit;background:var(--card);color:var(--ink)}
+  select,input.answer{width:100%;padding:9px 10px;border-radius:9px;border:1px solid var(--line);font:inherit;background:var(--card);color:var(--ink)}
   .choices{display:flex;gap:6px;flex-wrap:wrap}
   .choice{flex:1;min-width:80px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 8px;border-radius:9px;font:inherit;font-weight:600;cursor:pointer}
   .choice[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--card)}
   .choice.right{background:var(--good-soft);border-color:var(--good);color:var(--good-ink)}
   .choice.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad-ink)}
-  select.right{border-color:var(--good);background:var(--good-soft);color:var(--good-ink)} select.wrong{border-color:var(--bad);background:var(--bad-soft);color:var(--bad-ink)}
+  input.answer{font-size:16px}
+  .answer.right{border-color:var(--good);background:var(--good-soft);color:var(--good-ink)} .answer.wrong{border-color:var(--bad);background:var(--bad-soft);color:var(--bad-ink)}
   .feedback{margin-top:12px;padding:10px 12px;border-radius:10px;font-size:14px;display:none}
   .feedback.show{display:block}
   .feedback.ok{background:var(--good-soft);color:var(--good-ink)}
@@ -172,9 +173,9 @@
         <div class="row"><span class="muted" id="qCount">1 of 29</span><span class="score" id="qScore">0 / 0</span></div>
         <div class="progress"><div id="qBar"></div></div>
         <div class="prompt">What is <span id="qNum">#1</span>?</div>
-        <p class="muted" style="margin:0">It's highlighted purple on the map.</p>
+        <p class="muted" style="margin:0">It's highlighted on the map.</p>
         <label class="fl" for="qName">Name</label>
-        <select id="qName"></select>
+        <input id="qName" class="answer" type="text" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Type the name">
         <label class="fl">State or territory?</label>
         <div class="choices" id="qType"></div>
         <label class="fl">Free or slave?</label>
@@ -325,7 +326,8 @@ const TYPES = ['State', 'Territory', 'Neither'];
 const STATUSES = ['Free', 'Slave', 'Neither'];
 let Q = { order:[], i:0, pts:0, max:0, checked:false, missed:[], ans:{} };
 const qName = document.getElementById('qName');
-qName.innerHTML = '<option value="">Choose a name...</option>' + R.map(r => r.name).sort().map(n => `<option>${n}</option>`).join('');
+// "Michigan" and "Michigan Territory" both count, so typing never has to give away the type
+const norm = s => s.toLowerCase().replace(/[^a-z ]/g, '').replace(/\s+/g, ' ').trim().replace(/^(the|viceroyalty of) /, '').replace(/ (territory|country)$/, '');
 function choiceRow(container, opts, key) {
   container.innerHTML = '';
   opts.forEach(o => {
@@ -348,7 +350,7 @@ function renderQ() {
   document.getElementById('qScore').textContent = `${Q.pts} / ${Q.max} pts`;
   document.getElementById('qBar').style.width = (Q.i / Q.order.length * 100) + '%';
   document.getElementById('qNum').textContent = '#' + numOf[id];
-  qName.value = ''; qName.className = ''; qName.disabled = false;
+  qName.value = ''; qName.className = 'answer'; qName.disabled = false; qName.focus({ preventScroll: true });
   choiceRow(document.getElementById('qType'), TYPES, 'type');
   choiceRow(document.getElementById('qStatus'), STATUSES, 'status');
   const fb = document.getElementById('qFeedback'); fb.className = 'feedback';
@@ -359,9 +361,9 @@ function renderQ() {
 function checkQ() {
   if (Q.checked) { Q.i++; if (Q.i >= Q.order.length) return finishQuiz(); return renderQ(); }
   const r = byId[Q.order[Q.i]];
-  const okName = qName.value === r.name, okType = Q.ans.type === r.type, okStatus = Q.ans.status === r.status;
+  const okName = norm(qName.value) === norm(r.name), okType = Q.ans.type === r.type, okStatus = Q.ans.status === r.status;
   Q.checked = true; Q.max += 3; Q.pts += okName + okType + okStatus;
-  qName.className = okName ? 'right' : 'wrong'; qName.disabled = true;
+  qName.className = 'answer ' + (okName ? 'right' : 'wrong'); qName.disabled = true;
   const mark = (cid, correct) => [...document.getElementById(cid).children].forEach(c => {
     if (c.dataset.v === correct) c.classList.add('right'); else if (c.getAttribute('aria-pressed') === 'true') c.classList.add('wrong');
     c.removeAttribute('aria-pressed');
