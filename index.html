@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missouri Compromise 1820 Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f4ef; --card:#ffffff; --ink:#1f2328; --muted:#5f6670; --line:#e3ded3;
+    --free:#5b8fd1; --free-soft:#e6eefa; --free-ink:#24548f; --free-line:#bcd1ef;
+    --slave:#e3ac4f; --slave-soft:#fbf0dc; --slave-ink:#8a5a0b; --slave-line:#efd3a1;
+    --neutral:#d8d2c4; --water:#d7e6ec; --land:#eee9de; --spain:#f1ebdd; --land-line:#cfc8b8; --region-line:#ffffff;
+    --hatch-bg:#efede8; --hatch-line:#9a968c; --geo-label:#8a8270; --water-label:#5c8aa0;
+    --accent:#7c3aed; --accent-soft:#efe9ff; --accent-ink:#4c1d95; --accent-line:#c9b5fb;
+    --good:#1f9d55; --good-soft:#e3f5ea; --good-ink:#145c33; --bad:#d64545; --bad-soft:#fbe7e7; --bad-ink:#8f2121;
+    --soft:#faf8f3; --track:#eee8dc; --pill-n-bg:#eeeeee; --pill-n-ink:#555555;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+    --bg:#15171b; --card:#1f2228; --ink:#e9e7e2; --muted:#a0a6ae; --line:#353a42;
+    --free:#5b8fd1; --free-soft:#1c2a3e; --free-ink:#aecbf3; --free-line:#34507a;
+    --slave:#d9a24a; --slave-soft:#3a2e18; --slave-ink:#f1d08e; --slave-line:#6b5226;
+    --neutral:#4b4f56; --water:#1a2a33; --land:#2a2c2f; --spain:#302e2a; --land-line:#44464a; --region-line:#15171b;
+    --hatch-bg:#2c2d30; --hatch-line:#77736a; --geo-label:#959080; --water-label:#7aa6bb;
+    --accent:#a78bfa; --accent-soft:#2d2442; --accent-ink:#d9ccff; --accent-line:#5b4a8a;
+    --good:#2fb86a; --good-soft:#15331f; --good-ink:#93e3b5; --bad:#e05a5a; --bad-soft:#3b1c1c; --bad-ink:#f5aaaa;
+    --soft:#262a31; --track:#2e3239; --pill-n-bg:#2e3239; --pill-n-ink:#c4c8ce;
+    color-scheme: dark;
+  } }
+  :root[data-theme="dark"]{
+    --bg:#15171b; --card:#1f2228; --ink:#e9e7e2; --muted:#a0a6ae; --line:#353a42;
+    --free:#5b8fd1; --free-soft:#1c2a3e; --free-ink:#aecbf3; --free-line:#34507a;
+    --slave:#d9a24a; --slave-soft:#3a2e18; --slave-ink:#f1d08e; --slave-line:#6b5226;
+    --neutral:#4b4f56; --water:#1a2a33; --land:#2a2c2f; --spain:#302e2a; --land-line:#44464a; --region-line:#15171b;
+    --hatch-bg:#2c2d30; --hatch-line:#77736a; --geo-label:#959080; --water-label:#7aa6bb;
+    --accent:#a78bfa; --accent-soft:#2d2442; --accent-ink:#d9ccff; --accent-line:#5b4a8a;
+    --good:#2fb86a; --good-soft:#15331f; --good-ink:#93e3b5; --bad:#e05a5a; --bad-soft:#3b1c1c; --bad-ink:#f5aaaa;
+    --soft:#262a31; --track:#2e3239; --pill-n-bg:#2e3239; --pill-n-ink:#c4c8ce;
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.45}
+  header{max-width:1280px;margin:0 auto;padding:22px 20px 8px}
+  h1{font-family:"Source Serif 4",Georgia,serif;font-size:28px;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{color:var(--muted);margin:0}
+  .tabs{display:flex;gap:6px;margin-top:16px;flex-wrap:wrap}
+  .tab{border:1px solid var(--line);background:var(--card);padding:8px 14px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer;color:var(--muted)}
+  .tab[aria-selected="true"]{background:var(--ink);color:var(--card);border-color:var(--ink)}
+  main{max-width:1280px;margin:0 auto;padding:12px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px}
+  .mapwrap{padding:10px;position:relative}
+  svg{width:100%;height:auto;display:block;border-radius:10px;touch-action:manipulation}
+  .region{stroke:var(--region-line);stroke-width:.9;cursor:pointer;transition:fill .15s, opacity .15s}
+  .region:hover{opacity:.82}
+  .region.sel{stroke:var(--ink);stroke-width:2.2}
+  .badge circle{fill:var(--card);stroke:var(--ink);stroke-width:1.1}
+  .badge text{font:700 10.5px Inter,sans-serif;text-anchor:middle;dominant-baseline:central;fill:var(--ink);pointer-events:none}
+  .badge{cursor:pointer}
+  .badge.sel circle{fill:var(--ink)} .badge.sel text{fill:var(--card)}
+  .leader{stroke:var(--ink);stroke-width:.8;fill:none;pointer-events:none}
+  .geo-label{font:600 11px Inter,sans-serif;letter-spacing:.18em;fill:var(--geo-label);text-anchor:middle;pointer-events:none}
+  .water-label{font:italic 12px "Source Serif 4",serif;fill:var(--water-label);text-anchor:middle;pointer-events:none}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;padding:8px 6px 2px;color:var(--muted);font-size:13px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:14px;height:14px;border-radius:3px;display:inline-block}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;padding:8px 6px 2px}
+  .btn{border:1px solid var(--line);background:var(--card);padding:7px 12px;border-radius:9px;font:inherit;font-weight:600;cursor:pointer;color:var(--ink)}
+  .btn:hover{background:var(--soft)}
+  .btn.primary{background:var(--ink);color:var(--card);border-color:var(--ink)}
+  .btn.primary:hover{opacity:.88}
+  .btn[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent-ink)}
+  .btn:disabled{opacity:.45;cursor:default}
+  .panel{padding:18px}
+  .panel h2{font-family:"Source Serif 4",Georgia,serif;font-size:21px;margin:0 0 6px}
+  .panel h3{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:18px 0 8px}
+  .muted{color:var(--muted)}
+  .info-num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--card);font-weight:700;margin-right:8px;font-size:14px}
+  .pills{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+  .pill{padding:5px 11px;border-radius:999px;font-weight:600;font-size:13px;border:1px solid var(--line);color:var(--ink)}
+  .pill.free{background:var(--free-soft);color:var(--free-ink);border-color:var(--free-line)}
+  .pill.slave{background:var(--slave-soft);color:var(--slave-ink);border-color:var(--slave-line)}
+  .pill.neither{background:var(--pill-n-bg);color:var(--pill-n-ink)}
+  .fact{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px}
+  .list{display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;font-size:13.5px}
+  .list button{all:unset;cursor:pointer;padding:2px 0;color:var(--ink)}
+  .list button:hover{text-decoration:underline}
+  .list .n{color:var(--muted);font-variant-numeric:tabular-nums;display:inline-block;width:22px}
+  .tips li{margin-bottom:6px}
+  label.fl{display:block;font-weight:600;font-size:13px;margin:14px 0 6px}
+  select{width:100%;padding:9px 10px;border-radius:9px;border:1px solid var(--line);font:inherit;background:var(--card);color:var(--ink)}
+  .choices{display:flex;gap:6px;flex-wrap:wrap}
+  .choice{flex:1;min-width:80px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 8px;border-radius:9px;font:inherit;font-weight:600;cursor:pointer}
+  .choice[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--card)}
+  .choice.right{background:var(--good-soft);border-color:var(--good);color:var(--good-ink)}
+  .choice.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad-ink)}
+  select.right{border-color:var(--good);background:var(--good-soft);color:var(--good-ink)} select.wrong{border-color:var(--bad);background:var(--bad-soft);color:var(--bad-ink)}
+  .feedback{margin-top:12px;padding:10px 12px;border-radius:10px;font-size:14px;display:none}
+  .feedback.show{display:block}
+  .feedback.ok{background:var(--good-soft);color:var(--good-ink)}
+  .feedback.no{background:var(--bad-soft);color:var(--bad-ink)}
+  .progress{height:6px;background:var(--track);border-radius:99px;overflow:hidden;margin:10px 0 4px}
+  .progress div{height:100%;background:var(--accent);width:0;transition:width .25s}
+  .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .score{font-variant-numeric:tabular-nums;font-weight:600}
+  .big{font-size:40px;font-weight:700;font-family:"Source Serif 4",serif}
+  .missed{font-size:14px;padding-left:18px}
+  .prompt{font-size:22px;font-weight:700;font-family:"Source Serif 4",serif;margin:8px 0 2px}
+  .hidden{display:none !important}
+  @keyframes pulse{0%,100%{fill:var(--accent)}50%{fill:var(--accent-line)}}
+  .region.target{animation:pulse 1.2s ease-in-out infinite;stroke:var(--ink);stroke-width:2}
+  .region.flash-good{fill:var(--good) !important}
+  .region.flash-bad{fill:var(--bad) !important}
+  .kbd{font-size:12px;color:var(--muted)}
+  .m-water{fill:var(--water)} .m-land{fill:var(--land);stroke:var(--land-line);stroke-width:.6}
+  .m-spain{fill:var(--spain);stroke:var(--land-line);stroke-width:.6}
+  .h-bg{fill:var(--hatch-bg)} .h-line{stroke:var(--hatch-line);stroke-width:1.6}
+  .dc-star{fill:var(--card);stroke:var(--ink);stroke-width:.9;pointer-events:none}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Missouri Compromise of 1820</h1>
+  <p class="sub">Click any numbered area to learn it, then test yourself.</p>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-mode="study" aria-selected="true">Study</button>
+    <button class="tab" role="tab" data-mode="quiz" aria-selected="false">Test: Numbers</button>
+    <button class="tab" role="tab" data-mode="find" aria-selected="false">Test: Find it</button>
+  </div>
+</header>
+
+<main>
+  <section class="card mapwrap">
+    <svg id="map" role="img" aria-label="Map of the United States in 1820"></svg>
+    <div class="legend" id="legend">
+      <span><i class="sw" style="background:var(--free)"></i>Free</span>
+      <span><i class="sw" style="background:var(--slave)"></i>Slave</span>
+      <span><i class="sw" style="background:repeating-linear-gradient(45deg,#bbb 0 2px,#eee 2px 5px)"></i>Claimed by U.S. and Britain</span>
+      <span><i class="sw" style="background:#d33;height:3px;border-radius:2px"></i>36°30' line</span>
+    </div>
+    <div class="controls">
+      <button class="btn" id="toggleColors" aria-pressed="false">Hide colors</button>
+      <button class="btn" id="shuffleNums" aria-pressed="false">Shuffle numbers</button>
+    </div>
+  </section>
+
+  <aside class="card panel">
+    <!-- STUDY -->
+    <div id="study">
+      <div id="info">
+        <h2>Pick a number</h2>
+        <p class="muted">Click a region or its number on the map. You'll see its name, whether it was a state or territory, and whether it was free or slave.</p>
+      </div>
+      <h3>Quick facts</h3>
+      <ul class="tips">
+        <li><b>12 free states, 12 slave states</b> after the compromise.</li>
+        <li><b>Maine</b> came in free (1820). <b>Missouri</b> came in slave (1821).</li>
+        <li>Slavery banned north of <b>36°30'</b> in the Louisiana Purchase, except Missouri.</li>
+        <li>Watch out for <b>Delaware</b> and <b>Maryland</b>. They're far north but slave.</li>
+      </ul>
+      <h3>All areas</h3>
+      <div class="list" id="list"></div>
+    </div>
+
+    <!-- NUMBER QUIZ -->
+    <div id="quiz" class="hidden">
+      <div id="quizRun">
+        <div class="row"><span class="muted" id="qCount">1 of 29</span><span class="score" id="qScore">0 / 0</span></div>
+        <div class="progress"><div id="qBar"></div></div>
+        <div class="prompt">What is <span id="qNum">#1</span>?</div>
+        <p class="muted" style="margin:0">It's flashing purple on the map.</p>
+        <label class="fl" for="qName">Name</label>
+        <select id="qName"></select>
+        <label class="fl">State or territory?</label>
+        <div class="choices" id="qType"></div>
+        <label class="fl">Free or slave?</label>
+        <div class="choices" id="qStatus"></div>
+        <div class="feedback" id="qFeedback"></div>
+        <div class="row" style="margin-top:14px">
+          <span class="kbd">Enter = check / next</span>
+          <button class="btn primary" id="qCheck">Check</button>
+        </div>
+      </div>
+      <div id="quizDone" class="hidden"></div>
+    </div>
+
+    <!-- FIND QUIZ -->
+    <div id="find" class="hidden">
+      <div id="findRun">
+        <div class="row"><span class="muted" id="fCount">1 of 29</span><span class="score" id="fScore">0 correct</span></div>
+        <div class="progress"><div id="fBar"></div></div>
+        <p class="muted" style="margin:10px 0 0">Click this on the map:</p>
+        <div class="prompt" id="fPrompt">Kentucky</div>
+        <div class="pills" id="fPills"></div>
+        <div class="feedback" id="fFeedback"></div>
+        <div class="row" style="margin-top:10px">
+          <span></span>
+          <button class="btn" id="fSkip">Skip</button>
+        </div>
+      </div>
+      <div id="findDone" class="hidden"></div>
+    </div>
+  </aside>
+</main>
+
+<script src="data.js"></script>
+<script>
+const R = DATA.regions;
+const byId = Object.fromEntries(R.map(r => [r.id, r]));
+const NS = 'http://www.w3.org/2000/svg';
+const svg = document.getElementById('map');
+svg.setAttribute('viewBox', `0 0 ${DATA.W} ${DATA.H}`);
+
+let mode = 'study', showColors = true, selected = null;
+let numOf = {}; R.forEach((r, i) => numOf[r.id] = i + 1);
+
+function el(tag, attrs = {}, parent = svg) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  parent.appendChild(e); return e;
+}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const statusClass = s => s === 'Free' ? 'free' : s === 'Slave' ? 'slave' : 'neither';
+
+// ---------- draw map ----------
+const defs = el('defs');
+defs.innerHTML = `<pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" class="h-bg"/><line x1="0" y1="0" x2="0" y2="6" class="h-line"/></pattern>`;
+el('rect', { x:0, y:0, width:DATA.W, height:DATA.H, class:'m-water' });
+const bg = DATA.bg;
+['canada','mexico','cuba','bahamas'].forEach(k => bg[k] && el('path', { d:bg[k], class:'m-land' }));
+el('path', { d:bg.spainUS, class:'m-spain' });
+const t = (txt, xy, cls) => { const e = el('text', { x:xy[0], y:xy[1], class:cls }); e.textContent = txt; return e; };
+t('BRITISH NORTH AMERICA', bg.labels.bna, 'geo-label');
+t('VICEROYALTY', [bg.labels.spain[0], bg.labels.spain[1]-8], 'geo-label');
+t('OF NEW SPAIN', [bg.labels.spain[0], bg.labels.spain[1]+8], 'geo-label');
+t('Atlantic Ocean', bg.labels.atlantic, 'water-label');
+t('Gulf of Mexico', bg.labels.gulf, 'water-label');
+t('Pacific Ocean', bg.labels.pacific, 'water-label');
+
+const regionEls = {}, badgeEls = {};
+const gRegions = el('g');
+R.forEach(r => {
+  const p = el('path', { d:r.d, class:'region', 'data-id':r.id }, gRegions);
+  p.addEventListener('click', () => onRegionClick(r.id));
+  regionEls[r.id] = p;
+});
+el('path', { d:bg.line, stroke:'#d33', 'stroke-width':3, fill:'none', 'stroke-linecap':'round', 'pointer-events':'none' });
+const lineLbl = t("36°30'", [bg.labels.line[0], bg.labels.line[1]+14], 'water-label'); lineLbl.style.fill = '#e04848'; lineLbl.style.fontStyle='normal'; lineLbl.style.fontSize='11px';
+// DC star
+const dc = bg.dc;
+const star = el('path', { d: starPath(dc[0], dc[1], 5.5, 2.4), class:'dc-star' });
+function starPath(cx, cy, R1, r1){let d='';for(let i=0;i<10;i++){const a=Math.PI/5*i-Math.PI/2;const rr=i%2?r1:R1;d+=(i?'L':'M')+(cx+rr*Math.cos(a)).toFixed(1)+' '+(cy+rr*Math.sin(a)).toFixed(1)}return d+'Z'}
+
+const gBadges = el('g');
+R.forEach(r => {
+  if (r.callout) el('line', { x1:r.anchor[0], y1:r.anchor[1], x2:r.label[0], y2:r.label[1], class:'leader' }, gBadges);
+  const g = el('g', { class:'badge' }, gBadges);
+  el('circle', { cx:r.label[0], cy:r.label[1], r:10 }, g);
+  const tx = el('text', { x:r.label[0], y:r.label[1] }, g);
+  g.addEventListener('click', () => onRegionClick(r.id));
+  badgeEls[r.id] = { g, tx };
+});
+
+function fillFor(r) {
+  if (mode !== 'study' || !showColors) return r.status === 'Neither' && mode==='study' ? 'url(#hatch)' : 'var(--neutral)';
+  return r.status === 'Free' ? 'var(--free)' : r.status === 'Slave' ? 'var(--slave)' : 'url(#hatch)';
+}
+function paint() {
+  R.forEach(r => {
+    const p = regionEls[r.id];
+    p.style.fill = fillFor(r);
+    p.classList.toggle('sel', selected === r.id);
+    badgeEls[r.id].tx.textContent = numOf[r.id];
+    badgeEls[r.id].g.classList.toggle('sel', selected === r.id);
+  });
+  document.getElementById('legend').style.visibility = (mode === 'study' && showColors) ? 'visible' : 'hidden';
+}
+
+// ---------- study ----------
+function showInfo(id) {
+  const r = byId[id]; selected = id; paint();
+  const typeTxt = r.type === 'Shared claim' ? 'Not a state or territory' : r.type;
+  const statusTxt = r.status === 'Neither' ? 'Neither free nor slave' : r.status;
+  document.getElementById('info').innerHTML = `
+    <h2><span class="info-num">${numOf[id]}</span>${r.name}</h2>
+    <div class="pills">
+      <span class="pill">${typeTxt}</span>
+      <span class="pill ${statusClass(r.status)}">${statusTxt}</span>
+      ${r.admitted ? `<span class="pill">Admitted ${r.admitted}</span>` : ''}
+    </div>
+    ${r.fact ? `<div class="fact">${r.fact}</div>` : ''}`;
+}
+function buildList() {
+  const list = document.getElementById('list');
+  list.innerHTML = '';
+  R.slice().sort((a,b) => numOf[a.id] - numOf[b.id]).forEach(r => {
+    const b = document.createElement('button');
+    b.innerHTML = `<span class="n">${numOf[r.id]}.</span>${r.name}`;
+    b.onclick = () => showInfo(r.id);
+    list.appendChild(b);
+  });
+}
+
+document.getElementById('toggleColors').onclick = e => {
+  showColors = !showColors; e.currentTarget.setAttribute('aria-pressed', !showColors);
+  e.currentTarget.textContent = showColors ? 'Hide colors' : 'Show colors'; paint();
+};
+document.getElementById('shuffleNums').onclick = e => {
+  const on = e.currentTarget.getAttribute('aria-pressed') !== 'true';
+  e.currentTarget.setAttribute('aria-pressed', on);
+  e.currentTarget.textContent = on ? 'Normal numbers' : 'Shuffle numbers';
+  const order = on ? shuffle(R.map(r => r.id)) : R.map(r => r.id);
+  order.forEach((id, i) => numOf[id] = i + 1);
+  buildList(); paint();
+  if (selected && mode === 'study') showInfo(selected);
+  if (mode === 'quiz') renderQ();
+};
+
+// ---------- number quiz ----------
+const TYPES = ['State', 'Territory', 'Shared claim'];
+const STATUSES = ['Free', 'Slave', 'Neither'];
+let Q = { order:[], i:0, pts:0, max:0, checked:false, missed:[], ans:{} };
+const qName = document.getElementById('qName');
+qName.innerHTML = '<option value="">Choose a name...</option>' + R.map(r => r.name).sort().map(n => `<option>${n}</option>`).join('');
+function choiceRow(container, opts, key) {
+  container.innerHTML = '';
+  opts.forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'choice'; b.textContent = o === 'Shared claim' ? 'Neither' : o; b.dataset.v = o;
+    b.onclick = () => { if (Q.checked) return; Q.ans[key] = o; [...container.children].forEach(c => c.setAttribute('aria-pressed', c.dataset.v === o)); };
+    container.appendChild(b);
+  });
+}
+function startQuiz(ids) {
+  Q = { order: shuffle(ids || R.map(r => r.id)), i:0, pts:0, max:0, checked:false, missed:[], ans:{} };
+  document.getElementById('quizRun').classList.remove('hidden');
+  document.getElementById('quizDone').classList.add('hidden');
+  renderQ();
+}
+function renderQ() {
+  const id = Q.order[Q.i]; if (!id) return;
+  Q.checked = false; Q.ans = {};
+  document.getElementById('qCount').textContent = `${Q.i + 1} of ${Q.order.length}`;
+  document.getElementById('qScore').textContent = `${Q.pts} / ${Q.max} pts`;
+  document.getElementById('qBar').style.width = (Q.i / Q.order.length * 100) + '%';
+  document.getElementById('qNum').textContent = '#' + numOf[id];
+  qName.value = ''; qName.className = ''; qName.disabled = false;
+  choiceRow(document.getElementById('qType'), TYPES, 'type');
+  choiceRow(document.getElementById('qStatus'), STATUSES, 'status');
+  const fb = document.getElementById('qFeedback'); fb.className = 'feedback';
+  document.getElementById('qCheck').textContent = 'Check';
+  R.forEach(r => regionEls[r.id].classList.toggle('target', r.id === id));
+  selected = null; paint();
+}
+function checkQ() {
+  if (Q.checked) { Q.i++; if (Q.i >= Q.order.length) return finishQuiz(); return renderQ(); }
+  const r = byId[Q.order[Q.i]];
+  const okName = qName.value === r.name, okType = Q.ans.type === r.type, okStatus = Q.ans.status === r.status;
+  Q.checked = true; Q.max += 3; Q.pts += okName + okType + okStatus;
+  qName.className = okName ? 'right' : 'wrong'; qName.disabled = true;
+  const mark = (cid, correct) => [...document.getElementById(cid).children].forEach(c => {
+    if (c.dataset.v === correct) c.classList.add('right'); else if (c.getAttribute('aria-pressed') === 'true') c.classList.add('wrong');
+    c.removeAttribute('aria-pressed');
+  });
+  mark('qType', r.type); mark('qStatus', r.status);
+  const all = okName && okType && okStatus;
+  if (!all) Q.missed.push(r.id);
+  const fb = document.getElementById('qFeedback');
+  const typeTxt = r.type === 'Shared claim' ? 'not a state or territory' : r.type.toLowerCase();
+  const statusTxt = r.status === 'Neither' ? 'neither free nor slave' : r.status.toLowerCase();
+  fb.className = 'feedback show ' + (all ? 'ok' : 'no');
+  fb.innerHTML = all ? `Correct! <b>${r.name}</b>, ${typeTxt}, ${statusTxt}.` : `It's <b>${r.name}</b>: ${typeTxt}, ${statusTxt}.`;
+  document.getElementById('qScore').textContent = `${Q.pts} / ${Q.max} pts`;
+  document.getElementById('qCheck').textContent = Q.i + 1 >= Q.order.length ? 'See results' : 'Next';
+}
+function finishQuiz() {
+  R.forEach(r => regionEls[r.id].classList.remove('target'));
+  document.getElementById('quizRun').classList.add('hidden');
+  const d = document.getElementById('quizDone'); d.classList.remove('hidden');
+  const pct = Math.round(Q.pts / Q.max * 100);
+  const missed = Q.missed.map(id => byId[id]);
+  d.innerHTML = `<h2>Results</h2><div class="big">${pct}%</div>
+    <p class="muted">${Q.pts} of ${Q.max} points. ${Q.order.length - missed.length} of ${Q.order.length} fully correct.</p>
+    ${missed.length ? `<h3>Review these</h3><ul class="missed">${missed.map(r => `<li><b>${r.name}</b>: ${r.type === 'Shared claim' ? 'neither' : r.type.toLowerCase()}, ${r.status.toLowerCase()}</li>`).join('')}</ul>` : '<p>Perfect score. You are ready.</p>'}
+    <div class="row" style="margin-top:14px;justify-content:flex-start;gap:8px">
+      ${missed.length ? '<button class="btn primary" id="retryMissed">Retry missed</button>' : ''}
+      <button class="btn" id="restartQ">Start over</button>
+    </div>`;
+  const rm = document.getElementById('retryMissed'); if (rm) rm.onclick = () => startQuiz(Q.missed.slice());
+  document.getElementById('restartQ').onclick = () => startQuiz();
+  document.getElementById('qBar').style.width = '100%';
+}
+document.getElementById('qCheck').onclick = checkQ;
+
+// ---------- find quiz ----------
+let F = { order:[], i:0, right:0, busy:false, missed:[] };
+function startFind() {
+  F = { order: shuffle(R.map(r => r.id)), i:0, right:0, busy:false, missed:[] };
+  document.getElementById('findRun').classList.remove('hidden');
+  document.getElementById('findDone').classList.add('hidden');
+  renderF();
+}
+function renderF() {
+  const r = byId[F.order[F.i]];
+  document.getElementById('fCount').textContent = `${F.i + 1} of ${F.order.length}`;
+  document.getElementById('fScore').textContent = `${F.right} correct`;
+  document.getElementById('fBar').style.width = (F.i / F.order.length * 100) + '%';
+  document.getElementById('fPrompt').textContent = r.name;
+  document.getElementById('fPills').innerHTML = '';
+  document.getElementById('fFeedback').className = 'feedback';
+  selected = null; paint();
+}
+function answerF(id) {
+  if (F.busy) return;
+  const target = F.order[F.i], ok = id === target;
+  F.busy = true;
+  if (ok) F.right++; else F.missed.push(target);
+  regionEls[target].classList.add('flash-good');
+  if (!ok && id) regionEls[id].classList.add('flash-bad');
+  const r = byId[target];
+  document.getElementById('fPills').innerHTML = `<span class="pill">${r.type === 'Shared claim' ? 'Not a state or territory' : r.type}</span><span class="pill ${statusClass(r.status)}">${r.status === 'Neither' ? 'Neither' : r.status}</span>`;
+  const fb = document.getElementById('fFeedback');
+  fb.className = 'feedback show ' + (ok ? 'ok' : 'no');
+  fb.textContent = ok ? 'Correct!' : (id ? `That was ${byId[id].name}. ${r.name} is shown in green.` : `${r.name} is shown in green.`);
+  document.getElementById('fScore').textContent = `${F.right} correct`;
+  setTimeout(() => {
+    regionEls[target].classList.remove('flash-good'); if (id) regionEls[id].classList.remove('flash-bad');
+    F.busy = false; F.i++;
+    if (F.i >= F.order.length) finishFind(); else renderF();
+  }, ok ? 900 : 1900);
+}
+function finishFind() {
+  document.getElementById('findRun').classList.add('hidden');
+  const d = document.getElementById('findDone'); d.classList.remove('hidden');
+  d.innerHTML = `<h2>Results</h2><div class="big">${F.right} / ${F.order.length}</div>
+    ${F.missed.length ? `<h3>Missed</h3><ul class="missed">${F.missed.map(id => `<li>${byId[id].name}</li>`).join('')}</ul>` : '<p>Perfect. Nice work.</p>'}
+    <button class="btn primary" id="restartF" style="margin-top:12px">Try again</button>`;
+  document.getElementById('restartF').onclick = startFind;
+}
+document.getElementById('fSkip').onclick = () => answerF(null);
+
+// ---------- routing ----------
+function onRegionClick(id) {
+  if (mode === 'study') showInfo(id);
+  else if (mode === 'find') answerF(id);
+}
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.mode === m));
+  ['study','quiz','find'].forEach(x => document.getElementById(x).classList.toggle('hidden', x !== m));
+  document.getElementById('toggleColors').classList.toggle('hidden', m !== 'study');
+  R.forEach(r => regionEls[r.id].classList.remove('target','flash-good','flash-bad'));
+  selected = null;
+  if (m === 'quiz') startQuiz();
+  else if (m === 'find') startFind();
+  else paint();
+}
+document.querySelectorAll('.tab').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && mode === 'quiz' && !document.getElementById('quizRun').classList.contains('hidden')) { e.preventDefault(); checkQ(); }
+});
+
+buildList(); paint();
+</script>
+</body>
+</html>
