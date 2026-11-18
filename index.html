@@ -117,6 +117,7 @@
   .kbd{font-size:12px;color:var(--muted)}
   .m-water{fill:var(--water)} .m-land{fill:var(--land);stroke:var(--land-line);stroke-width:.6}
   .m-spain{fill:var(--spain);stroke:var(--land-line);stroke-width:.6}
+  .dot-free{fill:var(--free)} .dot-slave{fill:var(--slave)} .dot{fill:var(--card);opacity:.7}
   .h-bg{fill:var(--hatch-bg)} .h-line{stroke:var(--hatch-line);stroke-width:1.6}
   .dc-star{fill:var(--card);stroke:var(--ink);stroke-width:.9;pointer-events:none}
   :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -140,6 +141,7 @@
     <div class="legend" id="legend">
       <span><i class="sw" style="background:var(--free)"></i>Free</span>
       <span><i class="sw" style="background:var(--slave)"></i>Slave</span>
+      <span><i class="sw" style="background:radial-gradient(circle,var(--card) 1.6px,transparent 2px) 0 0/7px 7px,var(--muted)"></i>Dots = territory</span>
       <span><i class="sw" style="background:repeating-linear-gradient(45deg,#bbb 0 2px,#eee 2px 5px)"></i>Claimed by U.S. and Britain</span>
       <span><i class="sw" style="background:var(--spain);border:1px solid var(--land-line)"></i>New Spain</span>
       <span><i class="sw" style="background:#d33;height:3px;border-radius:2px"></i>36°30' line</span>
@@ -243,7 +245,8 @@ const statusClass = s => s === 'Free' ? 'free' : s === 'Slave' ? 'slave' : 'neit
 
 // ---------- draw map ----------
 const defs = el('defs');
-defs.innerHTML = `<pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" class="h-bg"/><line x1="0" y1="0" x2="0" y2="6" class="h-line"/></pattern>`;
+defs.innerHTML = `<pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" class="h-bg"/><line x1="0" y1="0" x2="0" y2="6" class="h-line"/></pattern>`
+  + ['free', 'slave'].map(k => `<pattern id="dots-${k}" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" class="dot-${k}"/><circle cx="2.5" cy="2.5" r="1.9" class="dot"/><circle cx="7.5" cy="7.5" r="1.9" class="dot"/></pattern>`).join('');
 el('rect', { x:0, y:0, width:DATA.W, height:DATA.H, class:'m-water' });
 const bg = DATA.bg;
 ['canada','cuba','bahamas'].forEach(k => bg[k] && el('path', { d:bg[k], class:'m-land' }));
@@ -282,7 +285,8 @@ R.forEach(r => {
 function fillFor(r) {
   const other = r.id === 'spain' ? 'var(--spain)' : 'url(#hatch)';
   if (mode !== 'study' || !showColors) return r.status === 'Neither' && mode==='study' ? other : 'var(--neutral)';
-  return r.status === 'Free' ? 'var(--free)' : r.status === 'Slave' ? 'var(--slave)' : other;
+  const dots = r.type === 'Territory';
+  return r.status === 'Free' ? (dots ? 'url(#dots-free)' : 'var(--free)') : r.status === 'Slave' ? (dots ? 'url(#dots-slave)' : 'var(--slave)') : other;
 }
 function paint() {
   R.forEach(r => {
