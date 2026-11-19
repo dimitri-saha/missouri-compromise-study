@@ -42,13 +42,21 @@
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.45}
-  header{max-width:1280px;margin:0 auto;padding:22px 20px 8px}
+  .layout{max-width:1520px;margin:0 auto;display:grid;grid-template-columns:190px minmax(0,1fr);padding-left:20px}
+  nav.maps{position:sticky;top:0;align-self:start;padding:22px 0 0;display:flex;flex-direction:column;gap:6px}
+  .nav-h{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin:6px 0 2px}
+  .maptab{display:block;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none;font-weight:600;line-height:1.25}
+  .maptab small{display:block;color:var(--muted);font-weight:500;margin-top:2px}
+  .maptab:hover{background:var(--soft)}
+  .maptab[aria-current="page"]{background:var(--ink);color:var(--card);border-color:var(--ink)} .maptab[aria-current="page"] small{color:inherit;opacity:.75}
+  @media (max-width:900px){.layout{grid-template-columns:1fr;padding-left:0} nav.maps{position:static;flex-direction:row;padding:16px 20px 0} .nav-h{display:none} .maptab{flex:1;min-width:0;font-size:13px;padding:8px 10px}}
+  header{max-width:1280px;margin:0;padding:22px 20px 8px}
   h1{font-family:"Source Serif 4",Georgia,serif;font-size:28px;margin:0 0 4px;letter-spacing:-.01em}
   .sub{color:var(--muted);margin:0}
   .tabs{display:flex;gap:6px;margin-top:16px;flex-wrap:wrap}
   .tab{border:1px solid var(--line);background:var(--card);padding:8px 14px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer;color:var(--muted)}
   .tab[aria-selected="true"]{background:var(--ink);color:var(--card);border-color:var(--ink)}
-  main{max-width:1280px;margin:0 auto;padding:12px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+  main{max-width:1280px;margin:0;padding:12px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
   @media (max-width:900px){main{grid-template-columns:1fr}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px}
   .mapwrap{padding:10px;position:relative}
@@ -83,6 +91,7 @@
   .pill{padding:5px 11px;border-radius:999px;font-weight:600;font-size:13px;border:1px solid var(--line);color:var(--ink)}
   .pill.free{background:var(--free-soft);color:var(--free-ink);border-color:var(--free-line)}
   .pill.slave{background:var(--slave-soft);color:var(--slave-ink);border-color:var(--slave-line)}
+  .pill.vote{background:repeating-linear-gradient(45deg,var(--free-soft) 0 6px,var(--slave-soft) 6px 12px);border-color:var(--line)}
   .pill.neither{background:var(--pill-n-bg);color:var(--pill-n-ink)}
   .fact{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px}
   .list{display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;font-size:13.5px}
@@ -124,8 +133,16 @@
 </style>
 </head>
 <body>
+<div class="layout">
+<nav class="maps" aria-label="Maps">
+  <span class="nav-h">Maps</span>
+  <a class="maptab" href="?map=1820" data-map="1820">Missouri Compromise<small>1820</small></a>
+  <a class="maptab" href="?map=1850" data-map="1850">Compromise of 1850<small>1850</small></a>
+  <a class="maptab" href="?map=1854" data-map="1854">Kansas-Nebraska Act<small>1854</small></a>
+</nav>
+<div>
 <header>
-  <h1>Missouri Compromise of 1820</h1>
+  <h1 id="title"></h1>
   <p class="sub">Click any numbered area to learn it, then test yourself.</p>
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" data-mode="study" aria-selected="true">Study</button>
@@ -137,15 +154,8 @@
 
 <main>
   <section class="card mapwrap">
-    <svg id="map" role="img" aria-label="Map of the United States in 1820"></svg>
-    <div class="legend" id="legend">
-      <span><i class="sw" style="background:var(--free)"></i>Free</span>
-      <span><i class="sw" style="background:var(--slave)"></i>Slave</span>
-      <span><i class="sw" style="background:radial-gradient(circle,var(--card) 1.6px,transparent 2px) 0 0/7px 7px,var(--muted)"></i>Dots = territory</span>
-      <span><i class="sw" style="background:repeating-linear-gradient(45deg,#bbb 0 2px,#eee 2px 5px)"></i>Claimed by U.S. and Britain</span>
-      <span><i class="sw" style="background:var(--spain);border:1px solid var(--land-line)"></i>New Spain</span>
-      <span><i class="sw" style="background:#d33;height:3px;border-radius:2px"></i>36°30' line</span>
-    </div>
+    <svg id="map" role="img"></svg>
+    <div class="legend" id="legend"></div>
     <div class="controls">
       <button class="btn" id="toggleColors" aria-pressed="false">Hide colors</button>
       <button class="btn" id="shuffleNums" aria-pressed="false">Shuffle numbers</button>
@@ -160,12 +170,7 @@
         <p class="muted">Click a region or its number on the map. You'll see its name, whether it was a state or territory, and whether it was free or slave.</p>
       </div>
       <h3>Quick facts</h3>
-      <ul class="tips">
-        <li><b>12 free states, 12 slave states</b> after the compromise.</li>
-        <li><b>Maine</b> came in free (1820). <b>Missouri</b> came in slave (1821).</li>
-        <li>Slavery banned north of <b>36°30'</b> in the Louisiana Purchase, except Missouri.</li>
-        <li>Watch out for <b>Delaware</b> and <b>Maryland</b>. They're far north but slave.</li>
-      </ul>
+      <ul class="tips" id="tips"></ul>
       <h3>All areas</h3>
       <div class="list" id="list"></div>
     </div>
@@ -210,6 +215,8 @@
     </div>
   </aside>
 </main>
+</div>
+</div>
 
 <script src="data.js"></script>
 <script>
@@ -226,6 +233,24 @@ themeBtn.onclick = () => {
   setTheme(t); try { localStorage.setItem('theme', t); } catch {}
 };
 
+// ---------- which map ----------
+const MAP_KEY = (k => MAPS[k] ? k : '1820')(new URLSearchParams(location.search).get('map'));
+const DATA = MAPS[MAP_KEY];
+document.querySelectorAll('.maptab').forEach(a => { if (a.dataset.map === MAP_KEY) a.setAttribute('aria-current', 'page'); });
+document.title = DATA.title + ' Study Guide';
+document.getElementById('title').textContent = DATA.title;
+document.getElementById('tips').innerHTML = DATA.tips.map(x => `<li>${x}</li>`).join('');
+document.getElementById('map').setAttribute('aria-label', 'Map for the ' + DATA.title);
+const SW = {
+  free: ['background:var(--free)', 'Free'], slave: ['background:var(--slave)', 'Slave'],
+  dots: ['background:radial-gradient(circle,var(--card) 1.6px,transparent 2px) 0 0/7px 7px,var(--muted)', 'Dots = territory'],
+  vote: ['background:repeating-linear-gradient(45deg,var(--free) 0 3px,var(--slave) 3px 6px)', 'Stripes = settlers vote'],
+  spain: ['background:var(--spain);border:1px solid var(--land-line)', 'New Spain'],
+  mexico: ['background:var(--land);border:1px solid var(--land-line)', 'Mexico'],
+  hatch: ['background:repeating-linear-gradient(45deg,#bbb 0 2px,#eee 2px 5px)'], line: ['background:#d33;height:3px;border-radius:2px'],
+};
+document.getElementById('legend').innerHTML = DATA.legend.map(k => { const [key, text] = k.split(':'); const [style, def] = SW[key]; return `<span><i class="sw" style="${style}"></i>${text || def}</span>`; }).join('');
+
 const R = DATA.regions;
 const byId = Object.fromEntries(R.map(r => [r.id, r]));
 const NS = 'http://www.w3.org/2000/svg';
@@ -241,15 +266,18 @@ function el(tag, attrs = {}, parent = svg) {
   parent.appendChild(e); return e;
 }
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-const statusClass = s => s === 'Free' ? 'free' : s === 'Slave' ? 'slave' : 'neither';
+const statusClass = s => ({ Free:'free', Slave:'slave', Vote:'vote' })[s] || 'neither';
+const STATUS_LABEL = { Free:'Free', Slave:'Slave', Vote:'Popular vote', Neither:'Neither' };
+const statusLong = s => ({ Neither:'Neither free nor slave', Vote:'Settlers vote (popular sovereignty)' })[s] || s;
 
 // ---------- draw map ----------
 const defs = el('defs');
 defs.innerHTML = `<pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" class="h-bg"/><line x1="0" y1="0" x2="0" y2="6" class="h-line"/></pattern>`
-  + ['free', 'slave'].map(k => `<pattern id="dots-${k}" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" class="dot-${k}"/><circle cx="2.5" cy="2.5" r="1.9" class="dot"/><circle cx="7.5" cy="7.5" r="1.9" class="dot"/></pattern>`).join('');
+  + ['free', 'slave'].map(k => `<pattern id="dots-${k}" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" class="dot-${k}"/><circle cx="2.5" cy="2.5" r="1.9" class="dot"/><circle cx="7.5" cy="7.5" r="1.9" class="dot"/></pattern>`).join('')
+  + `<pattern id="vote" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" class="dot-free"/><rect width="4" height="8" class="dot-slave"/></pattern>`;
 el('rect', { x:0, y:0, width:DATA.W, height:DATA.H, class:'m-water' });
 const bg = DATA.bg;
-['canada','cuba','bahamas'].forEach(k => bg[k] && el('path', { d:bg[k], class:'m-land' }));
+['canada','cuba','bahamas','mexico'].forEach(k => bg[k] && el('path', { d:bg[k], class:'m-land' }));
 const t = (txt, xy, cls) => { const e = el('text', { x:xy[0], y:xy[1], class:cls }); e.textContent = txt; return e; };
 t('BRITISH NORTH AMERICA', bg.labels.bna, 'geo-label');
 t('Atlantic Ocean', bg.labels.atlantic, 'water-label');
@@ -263,10 +291,12 @@ R.forEach(r => {
   p.addEventListener('click', () => onRegionClick(r.id));
   regionEls[r.id] = p;
 });
-t('VICEROYALTY', [bg.labels.spain[0], bg.labels.spain[1]-8], 'geo-label');
-t('OF NEW SPAIN', [bg.labels.spain[0], bg.labels.spain[1]+8], 'geo-label');
+if (byId.spain) { t('VICEROYALTY', [bg.labels.spain[0], bg.labels.spain[1]-8], 'geo-label'); t('OF NEW SPAIN', [bg.labels.spain[0], bg.labels.spain[1]+8], 'geo-label'); }
+else if (bg.labels.mexico) t('MEXICO', bg.labels.mexico, 'geo-label');
+if (bg.line) {
 el('path', { d:bg.line, stroke:'#d33', 'stroke-width':3, fill:'none', 'stroke-linecap':'round', 'pointer-events':'none' });
 const lineLbl = t("36°30'", [bg.labels.line[0], bg.labels.line[1]+14], 'water-label'); lineLbl.style.fill = '#e04848'; lineLbl.style.fontStyle='normal'; lineLbl.style.fontSize='11px';
+}
 // DC star
 const dc = bg.dc;
 const star = el('path', { d: starPath(dc[0], dc[1], 5.5, 2.4), class:'dc-star' });
@@ -286,6 +316,7 @@ function fillFor(r) {
   const other = r.id === 'spain' ? 'var(--spain)' : 'url(#hatch)';
   if (mode !== 'study' || !showColors) return r.status === 'Neither' && mode==='study' ? other : 'var(--neutral)';
   const dots = r.type === 'Territory';
+  if (r.status === 'Vote') return 'url(#vote)';
   return r.status === 'Free' ? (dots ? 'url(#dots-free)' : 'var(--free)') : r.status === 'Slave' ? (dots ? 'url(#dots-slave)' : 'var(--slave)') : other;
 }
 function paint() {
@@ -303,7 +334,7 @@ function paint() {
 function showInfo(id) {
   const r = byId[id]; selected = id; paint();
   const typeTxt = r.typeLabel || r.type;
-  const statusTxt = r.status === 'Neither' ? 'Neither free nor slave' : r.status;
+  const statusTxt = statusLong(r.status);
   document.getElementById('info').innerHTML = `
     <h2><span class="info-num">${numOf[id]}</span>${r.name}</h2>
     <div class="pills">
@@ -341,7 +372,7 @@ document.getElementById('shuffleNums').onclick = e => {
 
 // ---------- number quiz ----------
 const TYPES = ['State', 'Territory', 'Neither'];
-const STATUSES = ['Free', 'Slave', 'Neither'];
+const STATUSES = ['Free', 'Slave', ...(R.some(r => r.status === 'Vote') ? ['Vote'] : []), 'Neither'];
 let Q = { order:[], i:0, pts:0, max:0, checked:false, missed:[], ans:{} };
 const qName = document.getElementById('qName');
 // "Michigan" and "Michigan Territory" both count, so typing never has to give away the type
@@ -350,7 +381,7 @@ function choiceRow(container, opts, key) {
   container.innerHTML = '';
   opts.forEach(o => {
     const b = document.createElement('button');
-    b.className = 'choice'; b.textContent = o; b.dataset.v = o;
+    b.className = 'choice'; b.textContent = STATUS_LABEL[o] || o; b.dataset.v = o;
     b.onclick = () => { if (Q.checked) return; Q.ans[key] = o; [...container.children].forEach(c => c.setAttribute('aria-pressed', c.dataset.v === o)); };
     container.appendChild(b);
   });
@@ -391,7 +422,7 @@ function checkQ() {
   if (!all) Q.missed.push(r.id);
   const fb = document.getElementById('qFeedback');
   const typeTxt = r.typeLabel ? 'not a state or territory (' + r.typeLabel.toLowerCase() + ')' : r.type.toLowerCase();
-  const statusTxt = r.status === 'Neither' ? 'neither free nor slave' : r.status.toLowerCase();
+  const statusTxt = statusLong(r.status).toLowerCase();
   fb.className = 'feedback show ' + (all ? 'ok' : 'no');
   fb.innerHTML = all ? `Correct! <b>${r.name}</b>, ${typeTxt}, ${statusTxt}.` : `It's <b>${r.name}</b>: ${typeTxt}, ${statusTxt}.`;
   document.getElementById('qScore').textContent = `${Q.pts} / ${Q.max} pts`;
@@ -405,7 +436,7 @@ function finishQuiz() {
   const missed = Q.missed.map(id => byId[id]);
   d.innerHTML = `<h2>Results</h2><div class="big">${pct}%</div>
     <p class="muted">${Q.pts} of ${Q.max} points. ${Q.order.length - missed.length} of ${Q.order.length} fully correct.</p>
-    ${missed.length ? `<h3>Review these</h3><ul class="missed">${missed.map(r => `<li><b>${r.name}</b>: ${r.type.toLowerCase()}, ${r.status.toLowerCase()}</li>`).join('')}</ul>` : '<p>Perfect score. You are ready.</p>'}
+    ${missed.length ? `<h3>Review these</h3><ul class="missed">${missed.map(r => `<li><b>${r.name}</b>: ${(r.typeLabel || r.type).toLowerCase()}, ${statusLong(r.status).toLowerCase()}</li>`).join('')}</ul>` : '<p>Perfect score. You are ready.</p>'}
     <div class="row" style="margin-top:14px;justify-content:flex-start;gap:8px">
       ${missed.length ? '<button class="btn primary" id="retryMissed">Retry missed</button>' : ''}
       <button class="btn" id="restartQ">Start over</button>
@@ -442,7 +473,7 @@ function answerF(id) {
   regionEls[target].classList.add('flash-good');
   if (!ok && id) regionEls[id].classList.add('flash-bad');
   const r = byId[target];
-  document.getElementById('fPills').innerHTML = `<span class="pill">${r.typeLabel || r.type}</span><span class="pill ${statusClass(r.status)}">${r.status === 'Neither' ? 'Neither' : r.status}</span>`;
+  document.getElementById('fPills').innerHTML = `<span class="pill">${r.typeLabel || r.type}</span><span class="pill ${statusClass(r.status)}">${STATUS_LABEL[r.status]}</span>`;
   const fb = document.getElementById('fFeedback');
   fb.className = 'feedback show ' + (ok ? 'ok' : 'no');
   fb.textContent = ok ? 'Correct!' : (id ? `That was ${byId[id].name}. ${r.name} is shown in green.` : `${r.name} is shown in green.`);
